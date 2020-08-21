@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Stores from './pages/Stores';
 
 import Spinner from './components/Spinner';
 
@@ -72,6 +73,7 @@ class App extends Component {
           <PublicRoute path="/signup" authenticated={this.state.authenticated} component={ Signup }></PublicRoute>
           <PublicRoute path="/login" authenticated={this.state.authenticated} component={ Login }></PublicRoute>
           <PrivateRoute path="/dashboard" authenticated={this.state.authenticated} component={ Dashboard }></PrivateRoute>
+          <PrivateRoute path="/stores" authenticated={this.state.authenticated} component={ Stores }></PrivateRoute>
         </Switch>
       </Router>
     );
