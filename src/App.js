@@ -9,9 +9,13 @@ import {
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
-import './App.css';
+import Spinner from './components/Spinner';
+
+import './App.scss';
 import { auth } from './services/firebase';
+import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (
@@ -40,7 +44,7 @@ class App extends Component {
     super();
     this.state = {
       authenticated: false,
-      loading: true,
+      loading: true
     };
   }
 
@@ -49,7 +53,7 @@ class App extends Component {
       if (user) {
         this.setState({
           authenticated: true,
-          loading: false,
+          loading: false
         });
       } else {
         this.setState({
@@ -61,12 +65,13 @@ class App extends Component {
   }
 
   render() {
-    return this.state.loading === true ? <h2>Loading...</h2> : (
+    return this.state.loading === true ? <Spinner /> : (
       <Router>
         <Switch>
           <Route exact path="/" component={ Home }></Route>
           <PublicRoute path="/signup" authenticated={this.state.authenticated} component={ Signup }></PublicRoute>
           <PublicRoute path="/login" authenticated={this.state.authenticated} component={ Login }></PublicRoute>
+          <PrivateRoute path="/dashboard" authenticated={this.state.authenticated} component={ Dashboard }></PrivateRoute>
         </Switch>
       </Router>
     );

@@ -34,9 +34,7 @@ export default class Login extends Component {
     return (
       <div>
         <form autoComplete="off" onSubmit={this.handleSubmit}>
-          <h1>
-            Login to <Link to="/">Streams</Link>
-          </h1>
+        Login
 
           <p>
             Fill in the form below to login to your account.
