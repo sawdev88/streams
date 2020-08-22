@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import { Home } from 'react-feather';
+import { Home, Plus } from 'react-feather';
 
 function Stores() {
     return (
@@ -8,6 +8,8 @@ function Stores() {
             <div className="callout">
                 <h1><Home className="text-light" /> Stores</h1>
                 <h4>other stuff here</h4>
+
+                <button className="btn primary"><Plus /> Add New Store</button>
             </div>
 
             <div className="content">

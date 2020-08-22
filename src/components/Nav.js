@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Activity, Home } from 'react-feather';
+import { Activity, Home, Package, Settings, ChevronRight } from 'react-feather';
 
 function Nav() {
     return (
@@ -15,6 +15,18 @@ function Nav() {
                 <li>
                     <NavLink to="/stores">
                         <Home /> Stores
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink to="/products">
+                        <Package /> Products
+                    </NavLink>
+                </li>
+
+                <li>
+                    <NavLink to="/settings">
+                        <Settings /> Settings <ChevronRight className="arrow" />
                     </NavLink>
                 </li>
             </ul>

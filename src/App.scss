@@ -12,12 +12,43 @@ h1, h4 {
   flex: 1;
 }
 
+.flex-2 {
+  flex: 2;
+}
+
+.flex-3 {
+  flex: 3;
+}
+
 .text-right {
   text-align: right;
 }
 
 .text-light {
   opacity: .5;
+}
+
+.btn {
+  padding: .5rem 1rem;
+  border-radius: .3rem;
+  font-size: 1rem;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+
+  &.primary {
+    background: $blue;
+  }
+
+  svg {
+    font-size: 1rem;
+    vertical-align: middle;
+  }
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .loader,
@@ -96,7 +127,6 @@ h1, h4 {
 
 .layout {
   background: #eff3f9;
-  min-height: 92vh;
 }
 
 .header {
@@ -120,6 +150,39 @@ h1, h4 {
     border-radius: 50%;
     margin-left: 1rem;
   }
+
+  .dropdown {
+    position: absolute;
+    top: 4.4rem;
+    right: 1rem;
+    background: #fff;
+    width: 14rem;
+    text-align: left;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(31, 45, 65, 0.15);
+    border-radius: .35rem;
+    opacity: .95;
+
+    ul {
+      padding: .5rem 0;
+      list-style: none;
+      margin: 0;
+    }
+
+    li {
+      padding: .5rem 1rem;
+      font-size: 1rem;
+      line-height: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background: #f8f8f8;
+      }
+    }
+
+    .profile {
+      border-bottom: 1px solid #e3e6ec
+    }
+  }
 }
 
 .nav {
@@ -129,10 +192,15 @@ h1, h4 {
   bottom: 0;
   color: #1f2d41;
   width: 14rem;
-  padding: 5rem 0 2rem;
+  padding: 5rem 0 0;
   background: #fff;
   z-index: 10;
   box-shadow: 0.15rem 0 1.75rem 0 rgba(31,45,65,.15);
+
+  .arrow {
+    position: absolute;
+    right: .5rem;
+  }
 
   ul {
     padding: 0;
@@ -149,6 +217,7 @@ h1, h4 {
 
   li {
     margin-bottom: .5rem;
+    position: relative;
 
     &:hover {
       background: #f8f8f8;
@@ -160,6 +229,7 @@ h1, h4 {
     text-decoration: none;
     display: block;
     padding: .5rem 1rem;
+    color: #333;
 
     &.active {
       color: $blue !important;
@@ -167,7 +237,7 @@ h1, h4 {
     }
 
     &:visited {
-      color: unset;
+      color: #333;
     }
   }
 }
@@ -181,6 +251,22 @@ h1, h4 {
   background: linear-gradient(135deg,#0061f2,rgba(105,0,199,.8));
   padding: 4rem 2rem 0;
   color: #fff;
+  position: relative;
+
+  .btn {
+    position: absolute;
+    right: 2rem;
+    top: 4rem;
+    color: $blue;
+    background: rgba(255,255,255,.95);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 0 0 4px rgba(225, 225, 225, .3);
+
+    svg {
+      margin-right: .5rem;
+      height: 1.2rem;
+    }
+  }
 
   h4 {
     opacity: .5;
@@ -188,15 +274,20 @@ h1, h4 {
 }
 
 .content {
-  margin-top: -5rem;
+  margin-top: -6rem;
+  padding-bottom: 4rem;
 }
 
 .card {
   box-shadow: 0 0.15rem 1.75rem 0 rgba(31,45,65,.15);
   border: 1px solid rgba(31,45,65,.125);
   border-radius: .35rem;
-  margin: 1rem 2rem;
+  margin: 1rem 2rem 2rem;
   background: #fff;
+  position: relative;
+  overflow: hidden;
+
+  min-height: 18rem;
   
   .card-header {
     background: #f8f8f8;
@@ -209,5 +300,19 @@ h1, h4 {
 
   .card-body {
     padding: 2rem;
+  }
+}
+
+.card-row {
+  margin: 1rem 2rem 2rem;
+  display: flex;
+
+  .card {
+    flex: 1;
+    margin: 0 0 0 .8rem;
+
+    &:first-child {
+      margin: 0 .8rem 0 0;
+    }
   }
 }

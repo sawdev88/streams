@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import { Activity } from 'react-feather';
+import { Settings as Cog } from 'react-feather';
 
-function Dashboard() {
+function Settings() {
     return (
         <Layout>
             <div className="callout">
-                <h1><Activity className="text-light" /> Dashboard</h1>
+                <h1><Cog className="text-light" /> Settings</h1>
                 <h4>other stuff here</h4>
             </div>
 
@@ -38,4 +38,4 @@ function Dashboard() {
     )
 }
 
-export default Dashboard;
+export default Settings;
