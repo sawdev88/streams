@@ -19,7 +19,6 @@ import Spinner from './components/Spinner';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import { auth } from './services/firebase';
-import { scryRenderedComponentsWithType } from 'react-dom/test-utils';
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (

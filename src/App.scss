@@ -20,6 +20,10 @@ h1, h4 {
   flex: 3;
 }
 
+.fade-modal {
+  visibility: hidden;
+}
+
 .text-right {
   text-align: right;
 }
@@ -297,6 +301,10 @@ h1, h4 {
     color: $blue;
     font-size: 1rem;
     font-weight: 600;
+
+    .btn { 
+      vertical-align: middle;
+    }
   }
 
   .card-body {

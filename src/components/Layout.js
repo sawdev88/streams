@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route } from "react-router-dom";
 import Header from './Header';
 import Nav from './Nav';
@@ -6,7 +6,7 @@ import Nav from './Nav';
 import { auth } from "../services/firebase";
 
 function Layout(props) {
-    const user = auth().currentUser;
+    const [user, setUser] = useState(auth().currentUser);
     
     return (
         <div className="layout">
