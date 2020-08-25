@@ -1,12 +1,12 @@
 import React from 'react';
 import Layout from '../components/Layout';
-import { Home } from 'react-feather';
+import { Package } from 'react-feather';
 
 function Products() {
     return (
         <Layout>
             <div className="callout">
-                <h1><Home className="text-light" /> Products</h1>
+                <h1><Package className="text-light" /> Products</h1>
                 <h4>other stuff here</h4>
             </div>
 

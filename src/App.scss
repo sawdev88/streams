@@ -205,6 +205,7 @@ h1, h4 {
   ul {
     padding: 0;
     list-style: none;
+    width: 100%;
 
     svg {
       height: 1rem;
@@ -242,12 +243,12 @@ h1, h4 {
   }
 }
 
-.container {
+.content-wrapper {
   margin: 4rem 0 0 14rem;
 }
 
 .callout {
-  height: 24vh;
+  height: 34vh;
   background: linear-gradient(135deg,#0061f2,rgba(105,0,199,.8));
   padding: 4rem 2rem 0;
   color: #fff;
@@ -263,7 +264,7 @@ h1, h4 {
     box-shadow: 0 0 0 4px rgba(225, 225, 225, .3);
 
     svg {
-      margin-right: .5rem;
+      margin-right: .25rem;
       height: 1.2rem;
     }
   }
