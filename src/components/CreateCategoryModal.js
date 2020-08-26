@@ -2,32 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Plus, Grid } from 'react-feather';
 import { useForm } from "react-hook-form";
-import { db } from "../services/firebase"
-
+import { db, auth } from "../services/firebase"
 
 // TODO check if category already exists //
 
 function CreateCategoryModal(props) {
-    const [show, setShow] = useState(false);
+    const [show, toggleShow] = useState(false);
+    const [categoryError, setCategoryError] = useState('');
     const { register, handleSubmit, watch, errors } = useForm();
-    const handleClose = () => { props.showModal(); setShow(false); };
-    const handleShow = () => setShow(true);
+    const handleClose = () => { toggleShow(false); };
+    const handleShow = () => toggleShow(true);
+    const categoryRef = db.ref('/categories/' + auth().currentUser.uid);
 
     const onSubmit = data => {
-        const categoryRef = db.ref("categories");
         let {categoryName} = data;
+        setCategoryError('')
 
-        try {
-            categoryRef.push({name: categoryName})
-        } catch (error) {
-            // todo display error
-            console.log(error)
-            return;
-        }
-
-        // refresh table
-        props.refresh();
-        handleClose();
+        categoryRef.orderByChild("name").equalTo(categoryName).once("value", snapshot => {
+            if (snapshot.exists()){
+                // category already exists
+                setCategoryError(categoryName + ' already exists. Please try again')
+            } else {
+                // create new category
+                categoryRef.push({
+                    name: categoryName,
+                    userId: auth().currentUser.uid
+                }, error => {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        // refresh table
+                        props.refresh();
+                        handleClose();
+                    }
+                });
+            }
+        });
     };
 
 
@@ -51,6 +61,8 @@ function CreateCategoryModal(props) {
                           })} /> 
                   <span className="text-danger">{errors.categoryName && errors.categoryName.message}</span>
               </div>
+
+                { categoryError && <span className="text-danger">{ categoryError }</span> }
           </form>
           </Modal.Body>
           <Modal.Footer>

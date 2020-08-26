@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard';
 import Stores from './pages/Stores';
 import Products from './pages/Products';
 import Settings from './pages/Settings';
+import StoreDetails from './pages/StoreDetails';
 
 import Spinner from './components/Spinner';
 
@@ -75,7 +76,8 @@ class App extends Component {
           <PublicRoute path="/signup" authenticated={this.state.authenticated} component={ Signup }></PublicRoute>
           <PublicRoute path="/login" authenticated={this.state.authenticated} component={ Login }></PublicRoute>
           <PrivateRoute path="/dashboard" authenticated={this.state.authenticated} component={ Dashboard }></PrivateRoute>
-          <PrivateRoute path="/stores" authenticated={this.state.authenticated} component={ Stores }></PrivateRoute>
+          <PrivateRoute exact path="/stores" authenticated={this.state.authenticated} component={ Stores }></PrivateRoute>
+          <PrivateRoute exact path="/stores/:storeId" authenticated={this.state.authenticated} component={ StoreDetails }></PrivateRoute>
           <PrivateRoute path="/products" authenticated={this.state.authenticated} component={ Products }></PrivateRoute>
           <PrivateRoute path="/settings" authenticated={this.state.authenticated} component={ Settings }></PrivateRoute>
         </Switch>

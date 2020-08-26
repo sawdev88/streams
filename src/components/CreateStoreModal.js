@@ -3,10 +3,11 @@ import { Modal, Button } from 'react-bootstrap';
 import { Plus, Home } from 'react-feather';
 import { useForm } from "react-hook-form";
 import CreateCategoryModal from './CreateCategoryModal';
-import { db } from "../services/firebase";
+import { db, auth } from "../services/firebase";
 
 function CreateStoreModal(props) {
     const [show, setShow] = useState(false);
+    const [storeError, setStoreError] = useState('');
     const [fadeModal, toggleFadeModal] = useState(false);
     const { register, handleSubmit, watch, errors } = useForm();
     const handleClose = () => setShow(false);
@@ -14,7 +15,7 @@ function CreateStoreModal(props) {
         setShow(true);
         fetchCategories()
     }
-    const categoriesRef = db.ref("categories");
+    const categoriesRef = db.ref('/categories/' + auth().currentUser.uid);
     const [categoires, setCategories] = useState([])
 
     const fetchCategories = () => {
@@ -30,26 +31,29 @@ function CreateStoreModal(props) {
 
     const onSubmit = data => {
         let {storeName, storeCategory} = data;
+        setStoreError('');
 
-        try {
-            props.db.push({
-                name: storeName,
-                category: storeCategory,
-                created: Date.now()
-            })
-        } catch (error) {
-            // todo display error
-            console.log(error)
-            return;
-        }
-
-        // refresh table
-        props.refreshTable();
-        handleClose();
-    }
-
-    const toggleModal = () => {
-        toggleFadeModal(!fadeModal)
+        props.db.orderByChild("name").equalTo(storeName).once("value", snapshot => {
+            if (snapshot.exists()){
+                // category already exists
+                setStoreError(' * ' + storeName + ' already exists. Please use a different name')
+                return
+            } else {
+                props.db.push({
+                    name: storeName,
+                    category: storeCategory,
+                    created: Date.now(),
+                    userId: auth().currentUser.uid
+                }, error => {
+                    if (error) {
+                      console.log(error)
+                    } else {
+                      props.refreshTable();
+                      handleClose();
+                    }
+                });
+            }
+        });
     }
 
     return (
@@ -58,7 +62,7 @@ function CreateStoreModal(props) {
             <Plus /> Create New Store
           </Button>
     
-          <Modal show={show} className={ fadeModal ? 'fade-modal' : '' } onHide={handleClose}>
+          <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title><Home /> Create New Store</Modal.Title>
             </Modal.Header>
@@ -73,13 +77,14 @@ function CreateStoreModal(props) {
                              required: '* Please enter a store name'
                             })} /> 
                     <span className="text-danger">{errors.storeName && errors.storeName.message}</span>
+                    { storeError && <span className="text-danger">{ storeError }</span> }
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="storeCategory" className="d-block">
                         Category 
-                        <span onClick={ () => toggleModal() } className="float-right">
-                            <CreateCategoryModal refresh={ fetchCategories } showModal={ toggleFadeModal } />
+                        <span className="float-right">
+                            <CreateCategoryModal refresh={ fetchCategories } />
                         </span>
                     </label>
                     <select className="form-control" id="storeCategory" name="storeCategory" ref={register({
